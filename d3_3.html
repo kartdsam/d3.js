@@ -7,9 +7,14 @@
 </head>
 <body>
 <script>
-var width = 1024;
-var height = 768;
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+width = 1024 - margin.left - margin.right,
+height = 768 - margin.top - margin.bottom;
 var ctrl = d3.select("body").append("svg").attr("width", width).attr("height", height);
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+var ctrl = d3.select('body').append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
 d3.csv("./翡翠水庫水質資料.csv", 
     function(data)
     {
@@ -25,10 +30,17 @@ d3.csv("./翡翠水庫水質資料.csv",
             .attr("stroke", "purple")
             .attr("fill", "none")
             .attr("stroke-width",3);
+            x.domain(d3.extent(data, function(d) { return i; }));
+            y.domain([0, d3.max(data, function(d) { return d.Cha; })]);
+            ctrl.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
+            ctrl.append("g").call(d3.axisLeft(y));
     }
 
 );
-
 </script>
 </body>
 </html>
+
+    
+
+
