@@ -34,7 +34,7 @@ d3.csv("./翡翠水庫水質資料.csv",
             .attr("stroke-width",3);
             x.domain(d3.extent(data, function(d) {console.log(d.year); return d.year; }));
             y.domain([0, d3.max(data, function(d) { return d.Cha; })]);
-            ctrl.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom().scale(x));
+            ctrl.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
             ctrl.append("g").call(d3.axisLeft(y));
 
     }
