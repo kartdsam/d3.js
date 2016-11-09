@@ -15,10 +15,10 @@ d3.csv("./翡翠水庫水質資料.csv",
     {
         var ln = data.length;
         console.log(data);
-        var max = d3.max(data, function(d){ return d.AN; });
+        var max = d3.max(data, function(d){ return d.TP; });
         var lines = d3.line()
             .x(function(d,i){return i*(width/ln);})
-            .y(function(d){return height-d.AN*(height/max)});
+            .y(function(d){return height-d.TP*(height/max)});
         ctrl.append("path").data([data])
             .attr("d", lines)
             .attr("stroke", "red")
