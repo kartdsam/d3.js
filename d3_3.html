@@ -45,29 +45,6 @@ d3.csv("./翡翠水庫水質資料.csv",
 </html>
 
     
-    d3.csv("./drive_dead.csv", 
-        function(data)
-        {
-            var ln = data.length;
-            console.log(data);
-
-
-            data.forEach(function(d) {
-            d.year = parseTime(d.year);
-            });
-
-
-            var maxy = d3.max(data, function(d){return d.dead;});
-            var lines = d3.line().x(function(d, i){return i*(width/ln)}).y(function(d){return height-d.dead*(height/maxy)});
-            ctrl.append('path').data([data]).attr('d', lines).attr('stroke', 'steelblue').attr('fill','none');
-
-
-
-        }
-    );
-
-
-    
     
 
 
