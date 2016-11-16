@@ -8,7 +8,7 @@ function d3_3()
     var x = d3.scaleLinear().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
     var parseTime = d3.timeParse("%Y年");
-    var ctrl = d3.select('body').append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform","translate(" + margin.left + "," + margin.top + ")");
+    var ctrl = d3.select('.content').append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
     d3.csv("https://kartdsam.github.io/d3.js/翡翠水庫水質資料.csv", 
     function(data)
