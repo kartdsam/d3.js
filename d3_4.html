@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <title>Document</title>
+<title>Word Cloud</title>
+    <script src="lib/d3/d3.js"></script>
+    <script src="lib/d3/d3.layout.cloud.js"></script>
+    <script src="d3.wordcloud.js"></script>
+  	<meta charset="UTF-8" />
+ 	<script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
-	<h1>Word Cloud</h1>
-<script>
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-d3.csv("./wc.csv", 
-    function(data){ 
-        d3.wordcloud()
-        .size([500, 300])
-        .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
-        .words(data)
+	<div id='cloud'></div>
+    <script>
+    d3.csv("./js_wiki.csv", function(data)
+    {
+        var ln = data.length;
+        console.log(data);
+  	}
+	);
+      	d3.wordcloud()
+        .size([800, 400])
+        .selector('#cloud')
+        .words(data])
         .start();
-      });
-</script>
+    </script>
 </body>
 </html>
