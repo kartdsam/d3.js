@@ -28,7 +28,7 @@ function d3_3()
             x.d3.time.scale().domain([new Date(2013, 0, 0), new Date(2016, 9, 0)]).range([0, width]);
             y.domain([0, d3.max(data, function(d) { return d.Cha; })]);
             ctrl.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
-            ctrl.append("g").call(d3.axisLeft(y));
+            ctrl.append("g").call(d3.axisLeft(y)):
 
     }
 
