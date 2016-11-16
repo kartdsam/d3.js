@@ -10,11 +10,14 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
-
-
+var parseTime = d3.timeParse("%d-%b-%y");
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
-var parseTime = d3.timeParse("%Y年");
+var valueline = d3.line()
+    .x(function(d) { return x(d.year); })
+    .y(function(d) { return y(d.Cha); });
+
+
 var ctrl = d3.select('body').append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("./翡翠水庫水質資料.csv", 
@@ -22,20 +25,15 @@ d3.csv("./翡翠水庫水質資料.csv",
     {
         var ln = data.length;
         console.log(data);
-        var max = d3.max(data, function(d){ return d.Cha; });
-        console.log(max);
-        var lines = d3.line()
-            .x(function(d,i){return i*(width/ln);})
-            .y(function(d){return height-d.Cha*height/max});
-        ctrl.append("path").data([data])
-            .attr("d", lines)
-            .attr("stroke", "purple")
-            .attr("fill", "none")
+        x.domain(d3.extent(data, function(d) { return d.year; }));
+        y.domain([0, d3.max(data, function(d) { return d.Cha; })]);
+        ctrl.append("path")
+            .data([data])
+            .attr("class", "line")
+            .attr("d", valueline);
             .attr("stroke-width",3);
-            x.domain(d3.extent(data, function(d) { return d.year; }));
-            y.domain([0, d3.max(data, function(d) { return d.Cha; })]);
-            ctrl.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
-            ctrl.append("g").call(d3.axisLeft(y));
+        ctrl.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
+        ctrl.append("g").call(d3.axisLeft(y));
 
     }
 
